@@ -1,6 +1,10 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { useRecoilState } from "recoil";
+import { toDoState } from "../atoms";
 
 const Card = styled.div<{ isDragging: boolean }>`
   border-radius: 5px;
@@ -10,6 +14,8 @@ const Card = styled.div<{ isDragging: boolean }>`
   margin-bottom: 5px;
   box-shadow: ${(props) =>
     props.isDragging ? "0px 2px 25px rgba(0,0,0,0.05)" : "none"};
+  display: flex;
+  justify-content: space-between;
 `;
 
 interface IDragabbleCardProps {
@@ -17,6 +23,7 @@ interface IDragabbleCardProps {
   toDoText: string;
   index: number;
 }
+
 const DragabbleCard = ({ toDoId, index, toDoText }: IDragabbleCardProps) => {
   return (
     <Draggable draggableId={toDoId + ""} index={index}>

@@ -1,5 +1,5 @@
 import { title } from "process";
-import React from "react";
+import React, { useEffect } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
@@ -31,7 +31,7 @@ const Area = styled.div<IAreaProps>`
     props.isDraggingOver
       ? "#dfe6e9"
       : props.isDraggingFromThis
-      ? "#b2bec3"
+      ? "#00b894"
       : "transparent"};
   flex-grow: 1;
   transition: background-color 0.3s ease-in-out;
@@ -61,6 +61,7 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
       text: toDo,
     };
     setToDos((allBoard) => {
+      console.log(111);
       return {
         ...allBoard,
         [boardId]: [newToDo, ...allBoard[boardId]],
@@ -68,6 +69,9 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
     });
     setValue("toDo", "");
   };
+  useEffect(() => {
+    localStorage.setItem(boardId, JSON.stringify(toDos));
+  }, [boardId, toDos]);
   return (
     <Wrapper>
       <Title>{boardId}</Title>
